@@ -1,0 +1,35 @@
+In an express project
+
+Generate the json web token:
+	POST /login
+
+Validate the token
+	Middleware
+	products route -- added the middleware
+
+In a moleculer app:
+authentication:
+1. npm i jsonwebtoken --save
+2. Generate the token 
+	Users service : 
+		action
+			POST /users
+			Generate the token
+			Save it in the db ; collections : users
+			
+
+3. Protect some routes:
+	POST /books
+	--> auth:true as part of that action
+	Protect all the routes of a particular service
+	settings of service 
+	--> auth:true
+	** But for all of these to work
+		In api.service.js
+			routes:
+				authorization:true
+			methods:
+				authorize()
+				{
+					// validating the token
+				}

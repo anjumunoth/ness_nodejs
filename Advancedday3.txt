@@ -1,0 +1,56 @@
+Monolithic:
+	-- Traditional way of developing app
+	-- One single app
+	-- On changes -- test and restart the entire app
+	-- Cumbersome, wait for entire deployment
+	-- Difficult to maintain, modify
+	-- Tight coupling
+Microservices:
+	-- Special use case
+	-- Segregate the whole responsibilty into multiple services
+	-- Independent teams can work on different modules
+	-- Deployment can be easier
+	-- Change to a particular module -- test,restart the modules
+	-- 
+
+Nodejs
+	-- Single threaded, async, fast,lightweight, non blocking, event loop  
+
+Express -- monolithic
+Moleculer -- microservices
+
+Moleculer Framework:
+-- fast, progressive framework
+
+
+Features:
+	-- Create many services
+	-- Start the multiple services, track the multiple services, stop the services -- Auto deployment
+	-- Redeploy the particular service
+	-- Scalability ; 
+		-- Entire app
+		-- Particular service
+		-- With some simple steps; Multiple nodes which will host the same service
+		-- One node which can host multiple services
+	-- Communication between services
+		-- Transport protocol
+			-- Number of protocols available -- http, nats, redis...
+		-- Switching between protoocols is easier
+	-- Fault tolerance
+		On the failure of a particular service, how will the app work
+		circuit breaker, retry, timeout, fallback
+	-- Load balance requests
+	-- Masterless architecture. All nodes are equal
+	-- Middlewares
+	-- Service Mixins
+		--Mixin -- declare some functions
+		-- Functions in mixins will get merged with services
+	-- Support streams
+	-- Built in caching system
+		-- Frequently used data -- store in cache
+		-- performance benefit -- cache -- memory
+	-- Promise based architecture: promises, async,await
+	
+
+	
+

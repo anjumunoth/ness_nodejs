@@ -1,0 +1,82 @@
+Settings of Service Broker:
+
+1. Strategy: -- 
+	-- When there are multiple nodes hosting the same service
+	-- Which node should handle the request
+	-- Load balancing
+	-- Service Registry -- registry of services, actions, events,nodes
+
+	Round Robin strategy (default)
+	Random -- Selects a node randomly(Avoid as part of best practice )
+	CPU usage based strategy: Select a node with the lowest CPU usage
+	Latency based strategy: Select a node with the lowest latency
+	Sharding strategy :
+		-- First use the hashing algorithm on shard key
+		-- Based on hashed value, it will select the node
+		-- for the same key, it will go to the same node 
+	Custom strategy
+	Option: preferLocal: Boolean
+		-- true -- prefer local node (no latency); service is going to available on the same node 
+		-- false -- 
+	
+	
+Round robin strategy:
+Let 5 nodes(n1.... n5) which is going to host the same service "math"
+
+Client --> request --> math.add -->  start with n1
+
+3 clients ---> request --> math.add --> send to n2,n3,n4 (load balancing)
+
+7 clients ---> request --> math.add --> send to n5,n1...n5,n1 (load balancing)
+
+
+K8 -- create multiple instances of entire server
+Moleculer -- create multiple instance of a particular service in a microservices app;
+
+Express -- monolithic app;
+
+
+Discoverer:
+	-- local (default)
+		-- Use transport module to exchange heart beat
+		-- simple, fast
+		-- nodes > 100 -- slow, cumbersome 
+		-- settings : heartbeat interval, timeout, disable the heartbeats check, remove the nodes when the timeout has happened
+	-- redis
+		--node count is huge
+		-- use redis for discovering the nodes
+		-- ttl ; pub sub model 
+	-- etcd3
+	-- custom discoverer -- own 
+
+Dynamic service registry:
+	Registry -- services, events, actions, methods, nodes
+		Nodes : 
+			heartbeat
+			-- Exchange heartbeats at a particular interval of time with all the other nodes by its own service broker
+			-- status of every node
+			-- Access dynamic service registry and update its own Local service registry
+			-- transporter module
+			-- Will have its own local single instance of service broker
+			-- Will have only one service broker and multiple services
+			-- $node service -- inbuilt service used for admin tasks -- talk with dynamic registry and keep a copy of it
+			-- view dynamic service registry -- view
+			dynamic service registry -- mutate -- NO explicitly
+			
+			
+Validators:
+	params -- validations
+		-- required, data type validations, age >18
+validators libraries:
+	-- fastest validator library
+	-- other libraries -- joi
+	-- custom validator library
+			
+Moleculer Service runner:
+
+1 node -- multiple services
+	-- one $node service as part of service broker
+
+
+	
+
