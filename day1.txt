@@ -1,0 +1,86 @@
+Why nodejs ???
+	-- Project requirement
+	-- fast, Interactive 
+	-- Light weight
+	-- Highly scalable
+	-- Asynchronous programming
+		--example of asynchronous task -- setInterval, setTimeout, reading/ writing files; I/O operations, working with database
+		-- ways of handling async tasks 
+			-- callbacks
+			-- promises
+			-- async await
+	-- Non blocking code 
+	-- Single threaded 
+		-- event loop
+			-- internally manage a thread pool
+			-- run async tasks
+			-- once async tasks are completed (success , failure) -- callbacks will be executed by the main single thread 
+		
+		-- Multi threaded -- parallel operations, concurrency -- fast; management, deadlocks 
+	 -- security
+		jwt , OAuth
+	-- full stack 
+		-- javascript
+			-- react, angular,vue
+			-- nodejs 
+			-- database 
+				-- mongodb 
+	 -- Chrome V8 javascript engine -- nodejs -- performant
+	-- server side language -- javascript
+	-- javascript which runs outside the browser -- nodejs
+		-- doesnot support window, document
+	-- nodejs compiler -- compile the javascript code outside the browser
+	-- versions of javascript ECMA script 
+		-- late 1990's -- ES5; no upgrades for a long time
+		-- 2015 -- ES6; ES2015
+		ES7, ES8
+	-- browsers -- various versions 
+	-- browsers -- internal compiler ; compatibility 
+	-- nodejs -- various version
+		-- execute nodejs  -- compatible which version of ECMA 
+	-- community -- huge 
+	-- callbacks 
+
+Scalable
+	-- cricket matches
+	-- irctc 
+	-- amazon, flipkart 
+	-- scaling up and scaling down 
+
+function myFunc()
+{
+	console.log("start");
+	setInterval(()=>{
+		console.log("inside interval");
+		},5000);// asynchronous function 
+	console.log("end");
+
+}
+
+myFunc();// start ; end; inside interval(after 5 sec); inside interval....
+
+
+NUGET -- install, upgrade, uninstall packages in .NET 
+bundle of code -- predefined functionality -- call the functions 
+jar files
+#include<stdio.h>
+import (pip)
+nodejs --- modules -- npm 
+2.1 million modules -- npm -- largest repos of packages 
+
+// camel case -- best practice
+employeeId
+
+Modules in nodejs:
+1. All the variables and functions by default are local to that module
+2. Can export var(s) and/or function(s) using module.exports
+3. Whenever a module is imported using require -- the required module is executed
+4. There can be only one module.exports in a single module
+5. As a best practice -- in an exported module, dont add any console.logs
+6. caching of modules
+7. module.exports
+var i=10;
+i=20;
+i=30;
+console.log(i);//30
+
