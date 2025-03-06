@@ -1,0 +1,250 @@
+module.exports
+	-- Export a variable, function, class, object
+	-- One single option 
+	-- caching of required imports modules  -- performance benefit 
+		-- if the same module is required multiple times, only once it will get executed and other times it would be used from the cache
+
+
+Asynchronous tasks
+	-- handle the async tasks
+	-- time associated
+	-- outcome of async task -- failure , success
+	-- callbacks, promises, async and await
+
+function myFunc(p1,p2)
+{
+	var r=setTimeout(()=>{
+		return p1/p2;
+},2000);
+	return r;
+	
+}
+
+var res=myFunc(10,2);
+console.log(res);//integer value(clearTimeout)
+
+readFileSync
+	-- synchronous operation
+	-- main thread will do the read operation
+	-- blocking task
+	--read a file
+		-- success -- data
+		-- failure -- try - catch  
+
+Async operation
+	-- Pass a last parameter -- callback function
+	-- call back function will take in 2 params
+		-- err, data(optional)
+			-- err will get loaded if async op failed
+			-- data will get loaded if async op succeeds
+			-- Only one of 2(err or data) can get populated
+	-- Once async op completes, implicitly the callback will be called()
+
+
+const fs = require("fs");//name of the module -- inbuilt module -- core module
+const path = require("path");//core module 
+// files -- read, write, append, delete, create, rename
+// directory -- create, remove, list, rename
+// permission change
+// linking and unlinking
+// sync and async version
+
+// try {
+//     var fileName = path.join(__dirname, "..", "text2.txt");
+//     var data = fs.readFileSync(fileName);
+//     console.log("Data read from the file", data.toString());
+// }
+// catch (ex) {
+//     console.log("Error reading the file", ex);
+// }
+
+fs.readFile("text1.txt", (err, data) => {
+    if (err) {
+        console.log(err);
+    }
+    else
+        console.log("Data read from the file", data.toString());
+})
+
+fs.writeFile("text3.txt", "welcome to edforce", { flag: "a" }, (err) => {
+    if (err) {
+        console.log("Error writing in the file");
+
+    }
+    else
+        console.log("Write operation successful");
+});
+
+// header to file -- prepend ; write some contents at pos 0;
+// Way1 : read contents -- store in a var; open the file in write mode and pass the new data (header content + variable content)
+
+
+
+
+
+
+
+1. Add a header content to a text file
+//anju 
+
+  
+  //Gourav
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+        console.error('Error reading file:', err);
+        return;
+    }
+
+    // Prepend the header and write back to the file
+    const updatedContent = headerContent + data.toString();
+    fs.writeFile(filePath, updatedContent,  (err) => {
+        if (err) {
+            console.error('Error writing file:', err);
+        } else {
+            console.log('Header added successfully!');
+        }
+    });
+});
+
+
+//Raja
+const fs = require('fs');
+const filePath = 'example.txt'; // Your file
+const headerContent = '=== HEADER ===\n'; // Header you want to add
+
+// Read the existing file content
+fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err && err.code !== 'ENOENT') {
+        console.error('Error reading the file:', err);
+        return;
+    }
+
+    // Prepend the header to the file content
+    const updatedContent = headerContent + data.toString();
+
+    // Write back to the file
+    fs.writeFile(filePath, updatedContent, 'utf8', (err) => {
+        if (err) {
+            console.error('Error writing to the file:', err);
+        } else {
+            console.log('Header added successfully.');
+        }
+    });
+});
+
+// Prem
+const fs = require("fs")
+
+try {
+	const oldData = fs.readFileSync("file.txt")
+	const newData = "New header\n" + oldData.toString()
+	fs.writeFileSync("file.txt", newData)
+} catch(e) {
+	console.log("Exception:", e)
+}
+
+//apoorva
+const fs = require("fs");//name of the module -- inbuilt module -- core module
+const path = require("path");
+
+const filePath = "example.txt"
+const header = "Heading\n"
+
+fs.readFile(filePath,(err,data) => {
+    if(err){
+        console.log("error occured" + err)
+    }
+    else {
+        const updatedContent = header + data.toString()
+        fs.writeFile(filePath, updatedContent, (err) => {
+            if(err){
+                console.log("error occured" + err)
+            }
+            else{
+                console.log("updated successfully")
+            }
+        })
+    }
+})
+
+//murlidhar
+const fs = require("fs");
+fs.readFile("text1.txt",  (err, data) => {
+    if (err) {
+        console.log(err);
+    }
+    fs.writeFile("text1.txt", "This is my header \n" + data, (err) => {
+        if (err) {
+            console.log(err);
+        }
+    }
+)
+});
+	
+//sivasai kuruva
+const fs=require("fs");
+var fileheader="Hi There, Consider this is Header\n";
+// read the file first
+fs.readFile("text1.txt",(err,data)=>{
+    if(err)
+        console.log("Read operation failed");
+    else
+      {
+        fileheader=fileheader+data;
+  			fs.writeFile("text1.txt",fileheader,(err)=>{
+    if(err)
+        console.log("Write operation failed");
+    else
+        console.log("Write Sucessfull");
+        
+	})
+      }
+})
+
+
+
+
+// Nagendra
+var fs = require("fs");
+fs.readFile("text1.txt", (err, data)=> {
+ if(err) {
+	console.log("error: " + err);
+ }
+ else {
+	var appendPriorInfo = "prior info " + data.toString();
+	fs.writeFile("text1.txt", appendPriorInfo, (err) => {
+            (err) ? console.log("error: " + err) :console.log("Appended Successfully....");
+        }
+ }
+});
+  
+  
+  3. Read the contents from 3 file and write it(all 3 read contents) into 4th file; no order
+  -- call back hell
+  Scenario 1:Sequentially read 3 files and then write into 4th file
+  
+  Scenario 2: -- wrong answer
+  Read from file1. append into file4
+  Read from file2. append into file4
+  Read from file3. append into file4
+  
+  
+  Promises and async and await 
+  
+  
+  File1 - 5gb
+  File2 - 50 gb
+  
+  Video -- broken into chunks ; buffering 
+  Streams 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
