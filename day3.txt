@@ -1,0 +1,449 @@
+fs module 
+	-- 
+
+Promise -- way of handling async task
+.then() -- implicitly executed if promise resolve 
+.catch() -- implicitly executed if promise rejected
+
+
+Promise -- 4 stages
+	-- started (async task is executing) 
+	-- resolved (async task has completed successfully )
+	-- rejected (async task has completed with an error)
+	-- fulfilled (resolved or rejected)
+
+function myFunc(p1,p2)
+{
+	var promise=new Promise((resolve,reject)=>{
+		setTimeout(()=>{
+			var res=p1%p2;
+			if(res ==0)
+			{
+				resolve(`${p1} is divisible by ${p2}`);// data is string
+			}
+			else
+			{
+				reject(`${p1} is not divisible by ${p2}`);// async task has failed
+			}
+		},2000)
+	});
+	return promise;
+}
+
+var resPromise=myFunc(10,2);//return a promise;
+resPromise
+.then((data)=>{console.log(data);})
+.catch((err)=>{console.log(err});
+
+
+function myFunc1(p1,p2)
+{
+	return p1+p2;
+}
+
+var a=10,b=20;
+myFunc1(a,b);
+
+Expected result:
+Answer1:
+data1
+data2
+data3
+exception -- text2.txt not found
+
+Answer2: Monica and team 
+data1;
+exception -- text2.txt not found
+
+
+asyns and await 
+	-- work with any async task
+	-- instead of promises
+	-- 
+
+Function return a promise:
+	-- handle it a promise way(then and catch)
+	-- work with async await 
+
+File1: 5mb
+File2: 50gb
+File3: 2mb
+Sequentially
+
+Parallelly: async and await
+
+When to create a promise:
+select * from employees;
+
+Server side code 
+	MVC
+	fetching the data from the database -- model data
+	send model data(create a promise ; fetch is successful -- resolve the promise; table does not exists -- reject the promise ) to controller ;controller -- resolved promise -- 200; rejected promise -- error status code   controller will send as a response to front end
+
+Streams :
+if file size is huge -- readFile -- not a good option ; 
+streams 
+
+select * from products;// 1000 products ; Each product row will have multiple fields
+1. pagination -- each req -- 10 products ; multiple requests (page no);
+// 100 requests from the client ; 100 responses from server ; network intensive task
+2. streams
+Adv: 
+1 request from the server 
+Only 1 response from the server
+response as a stream
+One response will have multiple chunks sent to the frontend
+
+streams -- files
+streams -- huge amount of data; working with events 
+
+streams -- events
+1. single stream (in one direction)
+2. single stream (in one direction)
+3. duplex stream
+4. sockets
+
+Client side event -- click, mousemove event, keyup; inbuilt events
+Event
+	-- event
+	-- trigger the event(user) 
+	-- event handler -- function ; implicitly called whenever the event is triggered
+
+Nodejs -- server side 
+Events in nodejs
+	-- create the event
+	-- trigger the event (by whom)
+	-- event handler(s) and associate with the event
+
+
+
+
+//Ramanjaneyulu Nandyala
+
+// Paths to the input files and the output file
+const file1 = 'file1.txt';
+const file2 = 'file2.txt';
+const file3 = 'file3.txt';
+const outputFile = 'outputFile.txt';
+
+// Read all three files asynchronously
+fs.readFile(file1, (err, data1) => {
+    if (err) {
+        console.error(`Error reading ${file1}:`, err);
+        return;
+    }
+
+    fs.readFile(file2, (err, data2) => {
+        if (err) {
+            console.error(`Error reading ${file2}:`, err);
+            return;
+        }
+
+        fs.readFile(file3, (err, data3) => {
+            if (err) {
+                console.error(`Error reading ${file3}:`, err);
+                return;
+            }
+
+            // Concatenate contents of all three files
+            const combinedData = data1 + '\n' + data2 + '\n' + data3;
+
+            // Write the combined data to the output file
+            fs.writeFile(outputFile, combinedData, (err) => {
+                if (err) {
+                    console.error(`Error writing to ${outputFile}:`, err);
+                } else {
+                    console.log(`Successfully written to ${outputFile}`);
+                }
+            });
+        });
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Gourav
+const fs = require('fs');
+
+// Read three files asynchronously
+fs.readFile('file1.txt', (err, data1) => {
+    if (err) return console.error('Error reading file1:', err);
+    
+    fs.readFile('file2.txt', (err, data2) => {
+        if (err) return console.error('Error reading file2:', err);
+        
+        fs.readFile('file3.txt', (err, data3) => {
+            if (err) return console.error('Error reading file3:', err);
+            
+            // Convert Buffers to strings and merge content
+            const mergedContent = data1.toString() + '\n' + data2.toString() + '\n' + data3.toString();
+            
+            // Write to the fourth file asynchronously
+            fs.writeFile('output.txt', mergedContent, (err) => {
+                if (err) return console.error('Error writing output file:', err);
+                console.log('Files merged successfully into output.txt');
+            });
+        });
+    });
+});
+
+
+//Murlidhar -- Read 3 file and save to 4th file
+  const fs = require("fs");
+fs.readFile("text1.txt",  (err, data) => {
+    if (err) {
+        console.log(err);
+    }
+    else{
+        fs.readFile("text2.txt",  (err, data1) => {
+            if (err) {
+                console.log(err);
+            }
+            else{
+                fs.readFile("text3.txt",  (err, data2) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else{
+                        fs.writeFile("text4.txt", "This is my header \n" + data+data1+data2, (err) => {
+                            if (err) {
+                                console.log(err);
+                            }
+                        }
+                        )
+                    }    
+                });
+            }    
+        });
+    }    
+});
+
+
+
+
+// Sivasai Kuruva - add contents from 3 files into 4th file
+const fs=require("fs");
+
+// 1st - file
+fs.readFile("text1.txt",(err,data1)=>{
+    if(err)
+        console.log("Error reading text1 file");
+    else{
+
+        // 2nd - file
+        fs.readFile("text2.txt",(err,data2)=>{
+            if(err)
+                console.log("Error reading text2 file");
+            else{
+
+                // 3rd file
+                fs.readFile("text3.txt",(err,data3)=>{
+                    if(err)
+                        console.log("Error reading 3rd File");
+                    else{
+
+                        // write data to 4th file
+                        let mergedData = data1+"\n"+data2+"\n"+data3;
+                        fs.writeFile("MergedFile.txt",mergedData,(err)=>{
+                            if(err)
+                                console.log("Error in writing merged content to MergedFile.txt");
+                            console.log("Sucessfully merged content and posted to MergedFile.txt");
+                        });
+                    }
+                })
+            }
+        });
+    }
+});
+
+
+// const fs = require("fs").promises;
+const fs = require("fs");
+const { checkDivisibility } = require("./firstModule");
+
+fs.promises.readFile("text1.txt")
+    .then((data) => {
+        console.log("Data read from the file", data.toString());
+    })
+    .catch((err) => {
+        console.log("Error during the read", err);
+    })
+
+checkDivisibility(10, 3)
+    .then((data) => { console.log(data); })
+    .catch((err) => { console.log(err) });
+    
+    
+
+
+// read from 2 files and write into the 3rd file using promise
+//murlidhar
+var completeData="";
+fs.promises.readFile("text1.txt")
+    .then((data1) => {
+        console.log(data1.toString());
+        completeData+=data1.toString();
+        return fs.readFile("text2.txt");
+    })
+    .then((data2) => {
+        console.log(data2.toString());
+        completeData+=data2.toString();
+        return fs.readFile("text3.txt")
+    })
+    .then((data3) => {
+        console.log(data3.toString());
+        completeData+=data3.toString();
+        fs.writeFile("text4.txt", "This is my header \n" + completeData)
+    })
+    .then(() => {
+        console.log("File written successfully");
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+
+
+
+// Venkata Shanmukha Maddila
+const fs = require("fs").promises;
+function mergeFiles(inputFile1, inputFile2, outputFile) {
+    fs.readFile(inputFile1)
+        .then(data1 => {
+            return fs.readFile(inputFile2)
+                .then(data2 => ({ data1, data2 }));
+        })
+        .then(({ data1, data2 }) => fs.writeFile(outputFile, `${data1}\n${data2}`, 'utf-8'))
+        .then(() => console.log(`Written to ${outputFile}`))
+        .catch(error => console.error('Error processing files:', error));
+}
+
+mergeFiles('file1.txt', 'file2.txt', 'output.txt');
+
+
+//Gourav
+const fs = require("fs").promises;
+
+function mergeFiles(file1, file2, outputFile) {
+  fs.readFile(file1)
+    .then(data1 => fs.readFile(file2).then(data2 => data1 + "\n" + data2))
+    .then(mergedContent => fs.writeFile(outputFile, mergedContent))
+    .then(() => console.log(`Merged into ${outputFile}`))
+    .catch(console.error);
+}
+
+// Prem
+const fs = require("fs").promises
+
+const file1 = 'file1.txt';
+const file2 = 'file2.txt';
+const outputFile = 'outputFile.txt';
+
+Promise.all([
+    fs.readFile(file1),
+    fs.readFile(file2)
+]).then(result => {
+    const newData = result.join("\n")
+    fs.writeFile(outputFile, newData)
+    console.log(`Successfully written to ${outputFile}`);
+}).catch(exception => {
+    console.log("Error:", exception)
+})
+
+// Ramanjaneyulu Nandyala
+const fs = require("fs").promises
+// Paths to the input files and the output file
+const file1 = 'file1.txt';
+const file2 = 'file2.txt';
+const outputFile = 'outputFile.txt';
+var combinedData="";
+fs.readFile(file1)
+    .then(
+        (data1) => {
+            combinedData = data1 + '\n' ;
+            return fs.readFile(file2);
+        })
+    .then(
+        (data2) => {
+            combinedData = combinedData + data2;
+            return fs.writeFile(outputFile, combinedData);
+        })
+    .then(
+        (data) => {
+            console.log(`Successfully written to ${outputFile}`);
+        })
+    .catch(
+        (err) => {
+            console.error(`Error reading the files:`, err);
+            return;
+        }
+    )
+    
+    //apoorva
+    const fs = require("fs").promises
+let fileData = ""
+fs.readFile("file1.txt").then((data) => {
+    fileData = fileData + data;
+    return fs.readFile("file2.txt")
+}).then((data1) => {
+    fileData = fileData + data1
+    fs.appendFile("file3.txt", fileData)
+}).then(() => {
+console.log("successfully added")
+}).catch(() => {
+console.log("error occured")
+})
+
+//vijay
+
+
+const fs = require('fs').promises;
+
+async function readAndWriteMultipleFiles() {
+    
+    const data1 = await fs.readFile('test1.txt');
+    console.log('data1');
+    const data2 = await fs.readFile('test2.1txt');
+    console.log('data2');
+    const data3 = await fs.readFile('test3.txt');
+    console.log('data3');
+    const combinedData = data1 + data2 + data3;
+    fs.writeFile('samplefile.txt', combinedData)
+        
+}
+readAndWriteMultipleFiles().then(() => {
+    console.log('Successfully written data into the file..');
+}).catch((ex) => console.log(ex));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,144 @@
+Nodejs:
+	-- Single threaded
+	-- Event loop -- manage internal C++ thread pool
+	-- Can create worker threads (child threads)
+		-- spawn, fork... 
+	-- Scalability, huge data(streams) 
+	-- cluster module -- load balancing
+	-- logging modules -- banyan , Winston
+	-- Common module, ES6 module
+		-- import and export (.mjs)
+		-- require and module.exports (.js)
+	-- 
+
+
+// threads.mjs
+import { Worker, isMainThread,
+  workerData, parentPort } from 'node:worker_threads';
+if (isMainThread) {
+  const data = 'some data';
+  const worker = new Worker(import.meta.filename, { workerData: data });
+  worker.on('message', msg => console.log('Reply from Thread:', msg));
+} else {
+  const source = workerData;
+  parentPort.postMessage(btoa(source.toUpperCase()));
+}
+
+Streams 
+1. Readable
+2. writable 
+3. Duplex
+4. transform streams
+
+Readable streams
+client is giving a request to the server -- POST request -- create a resource -- send some data -- body of the request -- payload
+server has to read the data -- read stream
+Events -- data (chunk of data is received )
+	-- end (entire data has been read)
+	-- close 
+	-- error 
+	-- readable (manually work with various chunks of data)
+	Handle the events
+	-- Associate the various events with their corresponding event handlers
+	-- on, once, appendListener
+	-- method
+		-- pipe()
+	
+
+Writeable stream
+	-- write into the stream
+		-- write()
+		-- Call it multiple times
+		-- Write multiple chunks
+	-- Indicate the finish of writing
+		-- end()
+		-- can it only once
+		-- Implicitly close the stream
+	-- Can i call write() after end() --> No
+	-- Events 
+		-- error
+
+Duplex stream
+	-- Write and read to the same stream
+	-- Chat apps 
+
+Transform stream
+	-- Transformation of chunk in the stream
+
+Why streams 
+	-- huge data (which cannot fit in memory)
+	-- network 
+	-- faster 
+	-- modularity
+	-- read and write huge data
+	-- read and write into log files continuously at regular intervals
+
+chunk size : 
+	-- default size -- 64kb
+	-- configure
+	
+
+nodemon -- recompile on saving changes
+	-- watch for changes
+
+npm install nodemon
+
+http modules
+	-- manage is complex
+	-- modularity is slow
+	-- tightly coupled
+	-- managing,code -- complex; huge amounts of code
+	-- low level
+	-- security
+
+https module 
+	-- very similar to http
+
+Express 
+	-- framework which is build on nodejs
+	-- all the basic features in nodejs
+	-- modularity
+	-- routing, model , views -- mvc , mvvm 
+	-- middleware
+		-- authentication, authorisation, logging, transformation
+		-- inbuilt, user defined 
+	-- lightweight, fast, highly scalable
+	-- custom views ; view engines ; view templates -- static and dynamic
+
+nginx server 
+	-- created, managed, configured 
+	-- total control
+	-- simple apps
+	-- development
+
+
+node server
+	-- developer -- created, managed, configured 
+	-- PM2 -- load balancing ; trouble shooting ; scaling up
+	-- total control with us 
+	-- authorisation and authentication
+	-- jwt, encryption Oauth, 
+	-- data base 
+		-- mongodb 
+		-- tsl/ssl
+		
+
+	
+
+package.json
+	-- list of all dependencies(modules) of the project
+	-- with versions number
+		-- semantic versioning
+			-- x.y.z
+				-- version number. major build.minor build
+			-- ^x.y.z
+				-- 
+			-- ~x.y.z
+			-- x.y.z
+				-- exact version 
+	-- create the file
+		-- npm init
+	
+
+
+
